@@ -26,11 +26,11 @@ function PersonalScore(props: { username: string }) {
   const score = useLiveLatestScore(props.username);
 
   if (!score) {
-    return <div>no scores yet</div>;
+    return <div>Nothing played yet.</div>;
   }
   return (
     <div>
-      Latest play:
+      Last play:
       <br />
       <img
         style={{ height: "2lh", float: "left", marginInlineEnd: "0.5em" }}

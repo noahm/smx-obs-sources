@@ -14,9 +14,10 @@ export function PreviousBests(props: {
 }) {
   const query = useBestScores(props.username, props.songChartId, 3);
   if (query.isPending || query.error) return null;
+  if (!query.data.length) return null;
   return (
     <div>
-      Best plays before today:
+      Best before today:
       <ul>
         {query.data.map((score) => {
           const d = new Date(score.created_at);
