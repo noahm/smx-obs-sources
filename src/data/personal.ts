@@ -3,19 +3,31 @@ import { useEffect, useState } from "react";
 import type { Score } from "./models";
 
 // const keyForLatest = (username: string) => ["latest-score", username];
-const latestScores = (username: string, proto: "https" | "wss") =>
-  `${proto}://api.smx.573.no/scores?q=${encodeURIComponent(
-    JSON.stringify({ "gamer.username": username, _take: 1 }),
+const latestScores = (username: string, proto: "https" | "wss") => {
+  const params: Record<string, string | number | boolean> = {
+    "gamer.username": username,
+  };
+  if (proto === "https") {
+    params._take = 1;
+  }
+  return `${proto}://api.smx.573.no/scores?q=${encodeURIComponent(
+    JSON.stringify(params),
   )}`;
+};
 
 export function useLiveLatestScore(username: string): Score | null {
   const [latestScore, setLatestScore] = useState<Score | null>(null);
   // const client = useQueryClient();
   useEffect(() => {
+    if (!username) return;
     const socket = new WebSocket(latestScores(username, "wss"));
-    socket.addEventListener("message", (evt: MessageEvent<Score>) => {
+    socket.addEventListener("message", (evt: MessageEvent) => {
       // client.setQueryData(keyForLatest(username), [evt.data]);
-      setLatestScore(evt.data);
+      try {
+        setLatestScore(JSON.parse(evt.data));
+      } catch {
+        console.warn("failed to parse score update", { data: evt.data });
+      }
     });
     return () => {
       socket.close();
