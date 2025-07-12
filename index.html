@@ -1,13 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <link rel="stylesheet" href="/src/index.css" />
+    <link rel="stylesheet" href="/src/home.css" />
+    <title>SMX OBS Sources</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <h1>SMX OBS Sources</h1>
+    <h2>Useful web sources for streaming StepManiaX</h2>
+    <p>
+      There is currently only one source: a live-updating personal best display
+      of your most recently played chart
+    </p>
+    <p>
+      Add a new Browser Source to OBS using a url of
+      <code
+        ><a href="/pb?user=YOUR_USERNAME"
+          >obs.smx.tools/pb?user=YOUR_USERNAME</a
+        ></code
+      >
+    </p>
+    <p>
+      Add custom styling using the CSS option within OBS. More instructions for
+      customization coming soon!
+    </p>
+    <footer>
+      <small>
+        Yet another project of Noah Manneschmidt<br />
+        <a href="https://github.com/noahm/smx-obs-sources">source code</a>
+      </small>
+    </footer>
   </body>
 </html>
