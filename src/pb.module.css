@@ -1,0 +1,27 @@
+.pbContainer {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1em;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .pbContainer {
+    grid-auto-flow: row;
+  }
+}
+
+.jacketThumb {
+  height: 3em;
+  float: left;
+  margin-inline-end: 0.5em;
+}
+
+@supports (height: 2lh) {
+  .jacketThumb {
+    height: 2lh;
+  }
+}
+
+.leaderboardSlice {
+  padding-inline-start: 4ch;
+}

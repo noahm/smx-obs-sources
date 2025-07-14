@@ -3,6 +3,7 @@ import { useLeaderboardNeighbors } from "./data/global";
 import type { Score } from "./data/models";
 import { useLiveLatestScore } from "./data/personal";
 import { PreviousBests } from "./PreviousBest";
+import styles from "./pb.module.css";
 
 function pbDiff(s: Score) {
   if (!s.personal_best_previous) return null;
@@ -29,13 +30,7 @@ function PersonalScore(props: { username: string }) {
 
   const score = query.data;
   return (
-    <div
-      style={{
-        display: "grid",
-        gridAutoFlow: "column",
-        gap: "1em",
-      }}
-    >
+    <div className={styles.pbContainer}>
       <div>
         <h4>Last played</h4>
         <LastPlayedInfo query={query} />
@@ -68,7 +63,7 @@ function LastPlayedInfo({
   return (
     <>
       <img
-        style={{ height: "3em", float: "left", marginInlineEnd: "0.5em" }}
+        className={styles.jacketThumb}
         src={`https://data.stepmaniax.com/${score.song.cover_thumb}`}
       />
       {score.song.title}{" "}
@@ -89,7 +84,7 @@ function LeaderboardSlice(props: { score: Score | undefined }) {
   if (!lbItems?.length) return null;
 
   return (
-    <ol start={lbItems[0].atRank} style={{ paddingInlineStart: "4ch" }}>
+    <ol start={lbItems[0].atRank} className={styles.leaderboardSlice}>
       {lbItems.map((lbScore) => (
         <li key={lbScore._id}>
           {lbScore.gamer.username}{" "}
