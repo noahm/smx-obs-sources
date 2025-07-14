@@ -70,14 +70,15 @@ const personalScoresOnChart = (
 
 export function useBestScores(
   username: string,
-  songChartId: number,
+  songChartId: number | undefined,
   count: number,
 ) {
   return useQuery({
-    queryKey: keyForPersonalScores(username, songChartId, count),
+    enabled: !!songChartId,
+    queryKey: keyForPersonalScores(username, songChartId!, count),
     queryFn: async ({ signal }) => {
       const req = await fetch(
-        personalScoresOnChart(username, songChartId, count),
+        personalScoresOnChart(username, songChartId!, count),
         {
           signal,
         },
