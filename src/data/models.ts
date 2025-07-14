@@ -1,4 +1,5 @@
 export interface Score {
+  _id: number;
   score: number;
   created_at: string;
   personal_best: number;
@@ -16,5 +17,9 @@ export interface Score {
     artist: string;
     cover: string;
     cover_thumb: string;
+  };
+  gamer: {
+    _id: number;
+    username: string;
   };
 }

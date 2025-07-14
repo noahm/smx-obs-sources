@@ -1,22 +1,3 @@
-:root {
-  background-color: #242424;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;

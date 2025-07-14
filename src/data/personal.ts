@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 import type { Score } from "./models";
 
-// const keyForLatest = (username: string) => ["latest-score", username];
+const keyForLatest = (username: string) => ["latest-score", username];
 const latestScores = (username: string, proto: "https" | "wss") => {
   const params: Record<string, string | number | boolean> = {
     "gamer.username": username,
@@ -15,16 +15,16 @@ const latestScores = (username: string, proto: "https" | "wss") => {
   )}`;
 };
 
-export function useLiveLatestScore(username: string): Score | null {
-  const [latestScore, setLatestScore] = useState<Score | null>(null);
-  // const client = useQueryClient();
+export function useLiveLatestScore(username: string) {
+  // const [latestScore, setLatestScore] = useState<Score | null>(null);
+  const client = useQueryClient();
   useEffect(() => {
     if (!username) return;
     const socket = new WebSocket(latestScores(username, "wss"));
     socket.addEventListener("message", (evt: MessageEvent) => {
-      // client.setQueryData(keyForLatest(username), [evt.data]);
       try {
-        setLatestScore(JSON.parse(evt.data));
+        const score: Score = JSON.parse(evt.data);
+        client.setQueryData(keyForLatest(username), score);
       } catch {
         console.warn("failed to parse score update", { data: evt.data });
       }
@@ -32,16 +32,16 @@ export function useLiveLatestScore(username: string): Score | null {
     return () => {
       socket.close();
     };
-  }, [username]);
-  return latestScore;
+  }, [username, client]);
 
-  // return useQuery({
-  //   queryKey: keyForLatest(username),
-  //   queryFn: async ({ signal }) => {
-  //     const req = await fetch(latestScores(username, "https"), { signal });
-  //     return (await req.json()) as Array<Score>;
-  //   },
-  // });
+  return useQuery({
+    queryKey: keyForLatest(username),
+    queryFn: async ({ signal }) => {
+      const req = await fetch(latestScores(username, "https"), { signal });
+      const scores = (await req.json()) as Array<Score>;
+      if (scores.length) return scores[0];
+    },
+  });
 }
 
 const now = new Date();
@@ -64,6 +64,7 @@ const personalScoresOnChart = (
         lt: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
       },
       _take: count,
+      _sort_by: "score",
     }),
   )}`;
 

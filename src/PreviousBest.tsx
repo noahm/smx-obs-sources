@@ -17,13 +17,14 @@ export function PreviousBests(props: {
   if (!query.data.length) return null;
   return (
     <div>
-      Best before today:
+      <h4>Best Before Today</h4>
       <ul>
         {query.data.map((score) => {
           const d = new Date(score.created_at);
           return (
-            <li>
-              {score.score.toLocaleString()} {dateFormatter.format(d)}
+            <li key={score._id}>
+              <strong>{score.score.toLocaleString()}</strong>{" "}
+              {dateFormatter.format(d)}
             </li>
           );
         })}
