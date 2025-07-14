@@ -31,9 +31,9 @@ function PersonalScore(props: { username: string }) {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
+        display: "grid",
+        gridAutoFlow: "column",
+        gap: "1em",
       }}
     >
       <div>
@@ -89,7 +89,7 @@ function LeaderboardSlice(props: { score: Score | undefined }) {
   if (!lbItems?.length) return null;
 
   return (
-    <ol start={lbItems[0].atRank}>
+    <ol start={lbItems[0].atRank} style={{ paddingInlineStart: "4ch" }}>
       {lbItems.map((lbScore) => (
         <li key={lbScore._id}>
           {lbScore.gamer.username}{" "}
