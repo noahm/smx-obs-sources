@@ -2,6 +2,7 @@ import type { UseQueryResult } from "@tanstack/react-query";
 import { useLeaderboardNeighbors } from "./data/global";
 import type { Score } from "./data/models";
 import { useLiveLatestScore } from "./data/personal";
+import { useWeeklyLeaderboard } from "./data/weekly";
 import { PreviousBests } from "./PreviousBest";
 import styles from "./pb.module.css";
 
@@ -45,8 +46,13 @@ function PersonalScore(props: { username: string }) {
       </div>
 
       <div>
-        <h4>Global Rank</h4>
-        <LeaderboardSlice score={score} />
+        <h4>Song Rankings</h4>
+        <LeaderboardSlice username={props.username} score={score} />
+      </div>
+
+      <div>
+        <h4>Weekly Leaderboard</h4>
+        <WeeklyLeaderboardPanel username={props.username} score={score} />
       </div>
     </div>
   );
@@ -79,18 +85,62 @@ function LastPlayedInfo({
   );
 }
 
-function LeaderboardSlice(props: { score: Score | undefined }) {
+function LeaderboardSlice(props: {
+  username: string;
+  score: Score | undefined;
+}) {
   const lbItems = useLeaderboardNeighbors(props.score);
   if (!lbItems?.length) return null;
 
   return (
     <ol start={lbItems[0].atRank} className={styles.leaderboardSlice}>
       {lbItems.map((lbScore) => (
-        <li key={lbScore._id}>
+        <li
+          key={lbScore._id}
+          className={
+            lbScore.gamer.username.toLowerCase() ===
+            props.username.toLowerCase()
+              ? styles.highlightRow
+              : undefined
+          }
+        >
           {lbScore.gamer.username}{" "}
           <strong>{lbScore.score.toLocaleString()}</strong>
         </li>
       ))}
     </ol>
+  );
+}
+
+function WeeklyLeaderboardPanel(props: {
+  username: string;
+  score: Score | undefined;
+}) {
+  const query = useWeeklyLeaderboard(props.username, props.score?._id);
+  if (query.isPending) return "loading...";
+  if (query.isError || !query.data) return null;
+  const board = query.data;
+
+  return (
+    <>
+      {board.rank === null ? (
+        <div>Unranked this week</div>
+      ) : (
+        <ol start={board.context[0].rank} className={styles.leaderboardSlice}>
+          {board.context.map((row) => (
+            <li
+              key={row.rank}
+              className={
+                row.username.toLowerCase() === props.username.toLowerCase()
+                  ? styles.highlightRow
+                  : undefined
+              }
+            >
+              {row.username} <strong>{row.points.toLocaleString()}</strong>
+            </li>
+          ))}
+        </ol>
+      )}
+    </>
   );
 }

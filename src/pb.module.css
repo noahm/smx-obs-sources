@@ -25,3 +25,8 @@
 .leaderboardSlice {
   padding-inline-start: 4ch;
 }
+
+.highlightRow {
+  font-weight: bold;
+  color: gold;
+}
