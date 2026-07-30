@@ -5,12 +5,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--surface);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--accent);
 }
 button:focus,
 button:focus-visible {
@@ -20,11 +20,11 @@ button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
   background-color: transparent;
-  border-color: #444;
+  border-color: var(--border-muted);
   border-style: dashed;
 }
 button:disabled:hover {
-  border-color: #444;
+  border-color: var(--border-muted);
 }
 
 body {
@@ -36,7 +36,7 @@ body {
 }
 
 .read-the-docs {
-  color: #888;
+  color: var(--text-muted);
 }
 
 .widget-form {
@@ -55,8 +55,8 @@ body {
   font-size: 0.8em;
   padding: 0.4em 0.8em;
   border-radius: 8px;
-  border: 1px solid #646cff;
-  background-color: #1a1a1a;
+  border: 1px solid var(--accent);
+  background-color: var(--surface);
   color: inherit;
 }
 
@@ -77,9 +77,9 @@ body {
   font-size: 0.6em;
 }
 
-#widget-url[aria-disabled] {
+.widget-url-row a[aria-disabled] {
   pointer-events: none;
-  color: #888;
+  color: var(--text-muted);
 }
 
 .copy-feedback {
@@ -89,4 +89,75 @@ body {
   color: #6cff8f;
   font-size: 0.6em;
   white-space: nowrap;
+}
+
+.panel-picker-label {
+  font-size: 0.7em;
+  color: #aaa;
+  margin-bottom: 0.5em;
+}
+
+.panel-picker {
+  list-style: none;
+  margin: 0 auto 1.2em;
+  padding: 0;
+  max-width: 22em;
+  font-size: 0.7em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.panel-picker li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6em;
+  padding: 0.5em 0.7em;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background-color: var(--surface);
+  transition:
+    opacity 0.2s,
+    border-color 0.2s;
+}
+
+.panel-picker li.panel-off {
+  opacity: 0.55;
+  border-color: var(--border-muted);
+  border-style: dashed;
+}
+
+.panel-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  flex: 1;
+  cursor: pointer;
+  text-align: start;
+}
+
+.panel-toggle input {
+  width: 1em;
+  height: 1em;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.panel-reorder {
+  display: inline-flex;
+  gap: 0.3em;
+  flex-shrink: 0;
+}
+
+.panel-reorder button {
+  font-size: 0.9em;
+  line-height: 1;
+  padding: 0.25em 0.5em;
+}
+
+.panel-empty-hint {
+  font-size: 0.7em;
+  color: #ff9a6c;
 }

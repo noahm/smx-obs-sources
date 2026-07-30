@@ -13,6 +13,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "index.html"),
         pb: resolve(__dirname, "pb.html"),
+        widget: resolve(__dirname, "widget.html"),
       },
     },
   },
