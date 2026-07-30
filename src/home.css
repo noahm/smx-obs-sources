@@ -16,6 +16,16 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: transparent;
+  border-color: #444;
+  border-style: dashed;
+}
+button:disabled:hover {
+  border-color: #444;
+}
 
 body {
   max-width: 1280px;
@@ -27,4 +37,56 @@ body {
 
 .read-the-docs {
   color: #888;
+}
+
+.widget-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+}
+
+.widget-form label {
+  font-weight: 500;
+}
+
+.widget-form input {
+  font: inherit;
+  font-size: 0.8em;
+  padding: 0.4em 0.8em;
+  border-radius: 8px;
+  border: 1px solid #646cff;
+  background-color: #1a1a1a;
+  color: inherit;
+}
+
+.widget-url-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  flex-wrap: wrap;
+}
+
+.widget-url-row code {
+  font-size: 0.7em;
+}
+
+.widget-url-row button {
+  font-size: 0.6em;
+}
+
+#widget-url[aria-disabled] {
+  pointer-events: none;
+  color: #888;
+}
+
+.copy-feedback {
+  position: absolute;
+  top: 100%;
+  margin-top: 0.3em;
+  color: #6cff8f;
+  font-size: 0.6em;
+  white-space: nowrap;
 }

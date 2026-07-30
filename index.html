@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/index.css" />
     <link rel="stylesheet" href="/src/home.css" />
+    <script type="module" src="/src/home.main.ts"></script>
     <title>SMX OBS Sources</title>
   </head>
   <body>
@@ -15,12 +16,38 @@
       There is currently only one source: a live-updating personal best display
       of your most recently played chart
     </p>
-    <p>
-      Add a new Browser Source to OBS using a url of
+    <p>Add a new Browser Source to OBS using your personal widget url:</p>
+    <div class="widget-form">
+      <label for="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        placeholder="YourUsername"
+        autocomplete="off"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false"
+        data-1p-ignore="true"
+        data-lpignore="true"
+        data-bwignore="true"
+        data-protonpass-ignore="true"
+        data-form-type="other"
+      />
+    </div>
+    <p class="widget-url-row">
       <code
-        ><a href="/pb?user=YOUR_USERNAME"
-          >obs.smx.tools/pb?user=YOUR_USERNAME</a
+        ><a
+          id="widget-url"
+          href="/pb"
+          target="_blank"
+          rel="noopener"
+          aria-disabled="true"
+          >obs.smx.tools/pb?user=YourUsername</a
         ></code
+      >
+      <button id="copy-url" type="button" disabled>Copy</button>
+      <span id="copy-feedback" class="copy-feedback" hidden
+        >Copied to clipboard!</span
       >
     </p>
     <p>
