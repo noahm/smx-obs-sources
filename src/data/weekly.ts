@@ -23,7 +23,7 @@ const POST_SCORE_REFETCH_DELAY_MS = 12_000;
 
 const queryKey = (username: string) => ["weekly-leaderboard", username];
 const weeklyLeaderboardUrl = (username: string) =>
-  `https://smx-unplayed.val.run/?board=weekly&user=${encodeURIComponent(username)}&context=1`;
+  `https://unplayed.smx.tools/?board=weekly&user=${encodeURIComponent(username)}&context=1&format=json`;
 
 export function useWeeklyLeaderboard(username: string, scoreTrigger?: unknown) {
   const client = useQueryClient();
