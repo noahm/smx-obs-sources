@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "smx-obs-sources",
+  "compatibility_date": "2026-11-01",
+  // Static-assets-only Worker: no script runs, files are served directly from ./dist
+  "assets": {
+    "directory": "./dist",
+    // maps /pb -> pb.html and /widget -> widget.html
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
